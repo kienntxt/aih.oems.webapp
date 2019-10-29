@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace OEMS.Web.Controllers
 {
-    public class HomeController : Controller
+    public class MenuController : Controller
     {
-        // GET: Home
+        // GET: Menu
         public ActionResult Index()
         {
             return View();

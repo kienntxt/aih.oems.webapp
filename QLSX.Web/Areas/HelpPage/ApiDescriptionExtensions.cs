@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace QLSX.Web.Areas.HelpPage
+namespace OEMS.Web.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

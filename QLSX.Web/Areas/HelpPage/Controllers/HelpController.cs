@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using QLSX.Web.Areas.HelpPage.ModelDescriptions;
-using QLSX.Web.Areas.HelpPage.Models;
+using OEMS.Web.Areas.HelpPage.ModelDescriptions;
+using OEMS.Web.Areas.HelpPage.Models;
 
-namespace QLSX.Web.Areas.HelpPage.Controllers
+namespace OEMS.Web.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using QLSX.Web.Areas.HelpPage.ModelDescriptions;
-using QLSX.Web.Areas.HelpPage.Models;
+using OEMS.Web.Areas.HelpPage.ModelDescriptions;
+using OEMS.Web.Areas.HelpPage.Models;
 
-namespace QLSX.Web.Areas.HelpPage
+namespace OEMS.Web.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

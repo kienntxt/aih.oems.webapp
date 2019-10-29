@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace QLSX.Web.Controllers
+namespace OEMS.Web.Controllers
 {
     public class NavbarController : Controller
     {

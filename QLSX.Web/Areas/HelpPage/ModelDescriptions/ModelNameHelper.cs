@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace QLSX.Web.Areas.HelpPage.ModelDescriptions
+namespace OEMS.Web.Areas.HelpPage.ModelDescriptions
 {
     internal static class ModelNameHelper
     {

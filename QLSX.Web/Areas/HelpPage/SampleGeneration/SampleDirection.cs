@@ -1,4 +1,4 @@
-namespace QLSX.Web.Areas.HelpPage
+namespace OEMS.Web.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

@@ -6,10 +6,14 @@ using System.Web.Mvc;
 
 namespace OEMS.Web.Controllers
 {
-    public class HomeController : Controller
+    public class CommoditiesController : Controller
     {
-        // GET: Home
+        // GET: Commodities
         public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult Create()
         {
             return View();
         }

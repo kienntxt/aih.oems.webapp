@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace QLSX.Web.Areas.HelpPage
+namespace OEMS.Web.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {
