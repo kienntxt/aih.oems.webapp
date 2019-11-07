@@ -41,14 +41,14 @@
                             </div>
                             <div class="card-content collpase show">
                                 <div class="card-body">
-                                    <form class="form form-horizontal striped-rows form-bordered">
+                                    <form class="form form-horizontal striped-rows form-bordered" id="postform">
                                         <div class="form-body">
                                             <h4 class="form-section"><i class="ft-user"></i> Thông tin sản phẩm</h4>
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="timesheetinput1">Tên nhà sản phẩm</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        <input type="text" id="timesheetinput1" class="form-control" placeholder="Nhập tên sản phẩm" name="">
+                                                        <input type="text" id="txtCode" class="form-control" placeholder="Nhập tên sản phẩm" name="" value="lexuanhai">
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
@@ -59,7 +59,7 @@
                                                 <label class="col-md-3 label-control" for="timesheetinput2">Mã sản phẩm</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        <input type="text" id="timesheetinput2" class="form-control" placeholder="Nhập mã sản phẩm" name="projectname">
+                                                        <input type="text" id="txtCodeXT" class="form-control" placeholder="Nhập mã sản phẩm" name="projectname">
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
@@ -70,7 +70,7 @@
                                                 <label class="col-md-3 label-control" for="timesheetinput2">Mô tả ngắn</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        <input type="text" id="timesheetinput2" class="form-control" placeholder="Nhập mã nhà cung cấp" name="projectname">
+                                                        <input type="text" id="txtName" class="form-control" placeholder="Nhập mã nhà cung cấp" name="projectname">
                                                         <div class="form-control-position">
                                                             <i class="ft-phone primary"></i>
                                                         </div>
@@ -81,7 +81,7 @@
                                                 <label class="col-md-3 label-control" for="timesheetinput7">Mô tả dài</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative">
-                                                        <textarea id="timesheetinput7" rows="5" class="form-control" name="" placeholder="Ghi chú "></textarea>
+                                                        <textarea id="txtCity" rows="5" class="form-control" name="" placeholder="Ghi chú "></textarea>
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
@@ -155,3 +155,30 @@
     </div>
 </div>
 <!-- END: Content-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#postform").submit(function (e) {
+            e.preventDefault();
+            var apiurl = "http://113.160.87.222:9876/api/Commodity/Create?Commodity=object";
+            var person = new Object();
+            person.Code = $("#txtCode").val().trim();
+            person.CodeXT = $("#txtCodeXT").val().trim();
+            person.Name = $("#txtName").val().trim();
+            person.CommodityType = "material";
+            $.ajax({
+                url: apiurl,
+                type: 'POST',
+                dataType: 'json',
+                data: person,
+                success: function (d) {
+                    alert("Saved Successfully");
+                    document.getElementById("postform").reset();
+                },
+                error: function () {
+                    alert("Error please try again");
+                }
+            });
+        });
+    });
+
+</script> 
