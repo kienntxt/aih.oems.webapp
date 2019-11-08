@@ -1,0 +1,129 @@
+﻿@model OEMS.Web.Models.Price
+@{
+    Layout = "~/Views/Shared/_LayoutList.cshtml";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12 mb-2">
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Quản lý giá </a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <a href="#">Cập nhật thông tin </a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <!-- Striped row layout section start -->
+            <section id="striped-row-form-layouts">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collpase show">
+                                <div class="card-body">
+                                    @using (Html.BeginForm("Create", "Price", FormMethod.Post, new { @class = "form form-horizontal striped-rows form-bordered", @data_parsley_validate = "", id = "", @role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(x => x.Id)
+                                        <div class="form-body">
+                                            <h4 class="form-section"><i class="ft-user"></i> Thông tin sản phẩm</h4>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="timesheetinput1">Tên nhà sản phẩm</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative ">
+                                                        <input type="text" class="form-control" placeholder="" value="@Model.Material.Name" disabled>
+                                                        @*@Html.TextBoxFor(x => x.Name, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập tên sản phẩm" })*@
+                                                        <div class="form-control-position">
+                                                            <i class="ft-feather info font-medium-4"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="timesheetinput2">Mã sản phẩm</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative ">
+                                                        <input type="text" class="form-control" placeholder="" name="projectname" value="@Model.Material.Code" disabled>
+                                                        @*@Html.TextBoxFor(x => x.Code, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã sản phẩm" })*@
+                                                        <div class="form-control-position">
+                                                            <i class="ft-feather info font-medium-4"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="form-section"><i class="ft-clipboard"></i> Thông tin nhà cung cấp</h4>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="timesheetinput2">Mã nhà cung cấp</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative ">
+                                                        <input type="text" class="form-control" name="projectname" value="@Model.Vendor.Name" disabled>
+                                                        <div class="form-control-position">
+                                                            <i class="ft-feather info font-medium-4"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="timesheetinput2">Tên nhà cung cấp</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative ">
+                                                        <input type="text" class="form-control" name="projectname" value="@Model.Vendor.Code" disabled>
+                                                        <div class="form-control-position">
+                                                            <i class="ft-feather info font-medium-4"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="form-section"><i class="ft-clipboard"></i> Thông tin giá</h4>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control">Giá</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative ">
+                                                        @Html.TextBoxFor(x => x.Amount, new { @Required = "Required", @class = "form-control", @placeholder = "" })
+                                                        <div class="form-control-position">
+                                                            <i class="ft-feather info font-medium-4"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions right">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-check-square-o"></i> Save
+                                            </button>
+                                            <button type="button" class="btn btn-warning mr-1">
+                                                <i class="ft-x"></i> Cancel
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- // Striped row layout section end -->
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

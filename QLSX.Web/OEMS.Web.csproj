@@ -2666,6 +2666,7 @@
     <Content Include="Views\Partner\Index.cshtml" />
     <Content Include="Views\Commodities\CommodityDetial.cshtml" />
     <Content Include="Views\Price\Index.cshtml" />
+    <Content Include="Views\Price\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
