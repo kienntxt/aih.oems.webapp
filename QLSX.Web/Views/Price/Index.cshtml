@@ -13,10 +13,10 @@
                                 <a href="index.html">Home</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Quản lý vật tư</a>
+                                <a href="#">Quản lý giá</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Danh sách vật tư
+                                Danh sách giá
                             </li>
                         </ol>
                     </div>
@@ -32,7 +32,6 @@
                             <div class="card-header" style="background: black;">
                                 <ul class="list-inline mb-0">
                                     <li class="addnew">
-                                        <a href="@Url.Action("Create","Commodities")" class="btn btn-info"><i class="fa fa-plus"></i>Thêm mới</a>
                                     </li>
                                 </ul>
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
@@ -49,17 +48,23 @@
                                     <table class="table table-striped table-bordered" id="dynamic-table">
                                         <thead>
                                             <tr>
+                                                <th>Giá</th>
                                                 <th>Tên vật tư</th>
-                                                <th>Mã vật tư</th>
-                                                <th>Mã vật tư-XT</th>
+                                                <th>Tên nhà cung cấp</th>
+                                                <th>Mã nhà cung cấp</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Ngày cập nhật</th>
                                                 <td>Hành động </td>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
+                                                <th>Giá</th>
                                                 <th>Tên vật tư</th>
-                                                <th>Mã vật tư</th>
-                                                <th>Mã vật tư-XT</th>
+                                                <th>Tên nhà cung cấp</th>
+                                                <th>Mã nhà cung cấp</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Ngày cập nhật</th>
                                                 <td>Hành động </td>
                                             </tr>
                                         </tfoot>
@@ -81,39 +86,41 @@
         $('#dynamic-table').DataTable({
             'ajax': {
                 "type": "GET",
-                "url": "http://113.160.87.222:9876/api/Commodity/GetCommodities?type=material",
+                "url": "http://113.160.87.222:9876/api/Price/GetAllPrices",
                 "dataSrc": function (json) {
                     var data = new Array();
                     for (var i = 0; i < json.Items.length; i++) {
-                        //for (var j = 0; j < json[i].Items.length; j++) {
-                        //}
-                        data.push({
-                            'Name': json.Items[i].Name,
-                            'Code': json.Items[i].Code,
-                            'CodeXT': json.Items[i].CodeXT,
-                            'Id': json.Items[i].Id
-                        });
+                        //alert(json.Items[i].Vendor.Code);
+                            data.push({
+                              'Amount': json.Items[i].Amount,
+                              'MaterialName': json.Items[i].Material.Name,
+                                'PartnerName': json.Items[i].Vendor.Name,
+                              'PartnerCode': json.Items[i].Vendor.Code,
+                               'StartDate': json.Items[i].StartDate,
+                               'UpdatedDate': json.Items[i].UpdatedDate,
+                              'Id': json.Items[i].Id
+
+                            });
                     }
                     return data;
                 }
             },
             "columns": [
-                { 'data': 'Name' },
-                { 'data': 'Code' },
-                { 'data': 'CodeXT' },
+                { 'data': 'Amount' },
+                { 'data': 'MaterialName' },
+                { 'data': 'PartnerName' },
+                { 'data': 'PartnerCode' },
+                { 'data': 'StartDate' },
+                { 'data': 'UpdatedDate' },
                 {
                     "sortable": false,
                     "data": function (data, type, row) {
                         var urledit = "@Url.Action("Create","Commodities")";
                         var urleditdeltail = urledit + "/" + data.Id;
-                        var urldelete = "@Url.Action("Delete","Commodities")";
-                        var urldeletedeltail = urldelete + "/" + data.Id;
-                        var urldetail = "@Url.Action("CommodityDetial","Commodities")";
-                        var urldeltail = urldetail + "/" + data.Id;
-                        var btndetail = '<div class=\"btn-group mx-2\" role=\"group\" aria-label=\"Second Group\">  <a href="' +  urldeltail + '" title="Xem chi tiet" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></a>';
+                        var btndetail = '<div class=\"btn-group mx-2\" role=\"group\" aria-label=\"Second Group\">  <a href="" title="Xem chi tiet" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></a>';
                         var btnaddPc = ' <a href="' +  urleditdeltail + '" title="Cập nhật thông tin" class="btn btn-icon btn-outline-warning"><i class="fa fa-gavel"></i></a>';
-                        var btndeletePc = ' <a href="' +  urldeletedeltail + '" title="Xóa thông tin" class="btn btn-icon btn-outline-info"><i class="fa fa-recycle"></i></a> </div>';
-                        return ( btndetail+btnaddPc  + btndeletePc  );
+                        var btndeletePc = ' </div>';
+                        return ( btnaddPc  + btndeletePc  );
                     }
                 },
             ]

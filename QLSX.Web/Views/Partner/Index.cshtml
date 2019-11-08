@@ -13,10 +13,10 @@
                                 <a href="index.html">Home</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Quản lý vật tư</a>
+                                <a href="#">Quản lý nhà cung cấp</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Danh sách vật tư
+                                Danh sách nhà cung cấp
                             </li>
                         </ol>
                     </div>
@@ -49,17 +49,19 @@
                                     <table class="table table-striped table-bordered" id="dynamic-table">
                                         <thead>
                                             <tr>
-                                                <th>Tên vật tư</th>
-                                                <th>Mã vật tư</th>
-                                                <th>Mã vật tư-XT</th>
+                                                <th>Tên nhà cung cấp</th>
+                                                <th>Mã nhà cung cấp</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Ngày cập nhật</th>
                                                 <td>Hành động </td>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>Tên vật tư</th>
-                                                <th>Mã vật tư</th>
-                                                <th>Mã vật tư-XT</th>
+                                                <th>Tên nhà cung cấp</th>
+                                                <th>Mã nhà cung cấp</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Ngày cập nhật</th>
                                                 <td>Hành động </td>
                                             </tr>
                                         </tfoot>
@@ -108,12 +110,10 @@
                         var urleditdeltail = urledit + "/" + data.Id;
                         var urldelete = "@Url.Action("Delete","Commodities")";
                         var urldeletedeltail = urldelete + "/" + data.Id;
-                        var urldetail = "@Url.Action("CommodityDetial","Commodities")";
-                        var urldeltail = urldetail + "/" + data.Id;
-                        var btndetail = '<div class=\"btn-group mx-2\" role=\"group\" aria-label=\"Second Group\">  <a href="' +  urldeltail + '" title="Xem chi tiet" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></a>';
-                        var btnaddPc = ' <a href="' +  urleditdeltail + '" title="Cập nhật thông tin" class="btn btn-icon btn-outline-warning"><i class="fa fa-gavel"></i></a>';
-                        var btndeletePc = ' <a href="' +  urldeletedeltail + '" title="Xóa thông tin" class="btn btn-icon btn-outline-info"><i class="fa fa-recycle"></i></a> </div>';
-                        return ( btndetail+btnaddPc  + btndeletePc  );
+                        //var btndetail = " <div class=\"btn-group mx-2\" role=\"group\" aria-label=\"Second Group\">  <button type=\"button\" title=\"Xem chi tiet\" class=\"btn btn-icon btn-outline-success\"><i class=\"fa fa-search\"></i></button>";
+                        var btnaddPc = ' <a href="' +  urleditdeltail + '" title="Sửa" class="btn btn-icon btn-outline-warning"><i class="fa fa-gavel"></i></a>';
+                        var btndeletePc = ' <a href="' +  urldeletedeltail + '" title="Xoas" class="btn btn-icon btn-outline-info"><i class="fa fa-recycle"></i></a> </div>';
+                        return ( btnaddPc  + btndeletePc  );
                     }
                 },
             ]

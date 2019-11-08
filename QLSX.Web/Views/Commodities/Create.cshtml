@@ -1,4 +1,4 @@
-﻿
+﻿@model OEMS.Web.Models.Commodity
 @{
     Layout = "~/Views/Shared/_LayoutList.cshtml";
 }
@@ -41,14 +41,19 @@
                             </div>
                             <div class="card-content collpase show">
                                 <div class="card-body">
-                                    <form class="form form-horizontal striped-rows form-bordered" id="postform">
+                                    @*<form class="form form-horizontal striped-rows form-bordered" id="postform">*@
+                                    @using (Html.BeginForm("Create", "Commodities", FormMethod.Post, new { @class = "form form-horizontal striped-rows form-bordered", @data_parsley_validate = "", id = "", @role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(x => x.Id)
                                         <div class="form-body">
                                             <h4 class="form-section"><i class="ft-user"></i> Thông tin sản phẩm</h4>
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="timesheetinput1">Tên nhà sản phẩm</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        <input type="text" id="txtCode" class="form-control" placeholder="Nhập tên sản phẩm" name="" value="lexuanhai">
+                                                        @*<input type="text" id="txtCode" class="form-control" placeholder="Nhập tên sản phẩm" name="">*@
+                                                        @Html.TextBoxFor(x => x.Name, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập tên sản phẩm" })
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
@@ -59,7 +64,8 @@
                                                 <label class="col-md-3 label-control" for="timesheetinput2">Mã sản phẩm</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        <input type="text" id="txtCodeXT" class="form-control" placeholder="Nhập mã sản phẩm" name="projectname">
+                                                        @*<input type="text" id="txtCodeXT" class="form-control" placeholder="Nhập mã sản phẩm" name="projectname">*@
+                                                        @Html.TextBoxFor(x => x.Code, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã sản phẩm" })
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
@@ -70,33 +76,35 @@
                                                 <label class="col-md-3 label-control" for="timesheetinput2">Mô tả ngắn</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        <input type="text" id="txtName" class="form-control" placeholder="Nhập mã nhà cung cấp" name="projectname">
+                                                        @*<input type="text" id="txtName" class="form-control" placeholder="Nhập mã nhà cung cấp" name="projectname">*@
+                                                        @Html.TextBoxFor(x => x.CodeXT, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã sản phẩm" })
                                                         <div class="form-control-position">
                                                             <i class="ft-phone primary"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group row last">
+                                            @*<div class="form-group row last">
                                                 <label class="col-md-3 label-control" for="timesheetinput7">Mô tả dài</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative">
-                                                        <textarea id="txtCity" rows="5" class="form-control" name="" placeholder="Ghi chú "></textarea>
+                                                        @Html.TextBoxFor(x => x.CommodityType, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã sản phẩm" })
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                             <div class="form-group row last">
                                                 <label class="col-md-3 label-control" for="timesheetinput7">Loại</label>
                                                 <div class="form-group col-9 mb-2">
                                                     <label class="sr-only" for="issueinput6">Status</label>
-                                                    <select id="issueinput6" name="status" class="form-control" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Status" data-original-title="" title="" aria-describedby="tooltip103430">
+                                                    @Html.DropDownListFor(x => x.CommodityType, Constant.TypeCommodity.dctName.Select(n => new SelectListItem { Selected = n.Key == Model.CommodityType, Text = n.Value, Value = n.Key.ToString() }), new { @class = "form-control", @placeholder = "Chọn loại vật tư" })
+                                                    @*<select id="issueinput6" name="status" class="form-control" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Status" data-original-title="" title="" aria-describedby="tooltip103430">
                                                         <option value="not started">Material</option>
                                                         <option value="started">Prod</option>
                                                         <option value="fixed">SemiProd</option>
-                                                    </select>
+                                                    </select>*@
                                                 </div>
                                             </div>
                                             <h4 class="form-section"><i class="ft-clipboard"></i> Thông tin nhà cung cấp</h4>
@@ -143,7 +151,8 @@
                                                 <i class="ft-x"></i> Cancel
                                             </button>
                                         </div>
-                                    </form>
+                                    }
+                                    @*</form>*@
                                 </div>
                             </div>
                         </div>
@@ -155,7 +164,7 @@
     </div>
 </div>
 <!-- END: Content-->
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(document).ready(function () {
         $("#postform").submit(function (e) {
             e.preventDefault();
@@ -181,4 +190,4 @@
         });
     });
 
-</script> 
+</script>*@ 

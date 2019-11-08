@@ -18,6 +18,11 @@ namespace OEMS.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+            name: "vattu",
+            url: "danhmuc/vattu",
+            defaults: new { controller = "Commodities", action = "Index"}
+        );
         }
     }
 }

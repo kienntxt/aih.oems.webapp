@@ -1,4 +1,5 @@
-﻿@{
+﻿@model OEMS.Web.Models.Commodity
+@{
     Layout = "~/Views/Shared/_LayoutList.cshtml";
 }
 <!-- BEGIN: Content-->
@@ -16,7 +17,7 @@
                                 <a href="#">Quản lý vật tư</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Danh sách vật tư
+                                Thông tin chi tiết
                             </li>
                         </ol>
                     </div>
@@ -32,7 +33,7 @@
                             <div class="card-header" style="background: black;">
                                 <ul class="list-inline mb-0">
                                     <li class="addnew">
-                                        <a href="@Url.Action("Create","Commodities")" class="btn btn-info"><i class="fa fa-plus"></i>Thêm mới</a>
+                                        <a href="@Url.Action("Index","Commodities")" class="btn btn-info"><i class="fa fa-plus"></i>Quay lại</a>
                                     </li>
                                 </ul>
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
@@ -52,17 +53,35 @@
                                                 <th>Tên vật tư</th>
                                                 <th>Mã vật tư</th>
                                                 <th>Mã vật tư-XT</th>
-                                                <td>Hành động </td>
+                                                <th>Loại vật tư</th>
+                                                <th>Giá</th>
+                                                <th>Tên nhà cung cấp</th>
+                                                <th>Mã nhà cung cấp</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
+                                        <tbody>
                                             <tr>
-                                                <th>Tên vật tư</th>
-                                                <th>Mã vật tư</th>
-                                                <th>Mã vật tư-XT</th>
-                                                <td>Hành động </td>
+                                                <td>@Model.Name</td>
+                                                <td>@Model.Code</td>
+                                                <td>@Model.CodeXT</td>
+                                                <td>@Model.CommodityType</td>
+                                                @if (Model.Prices.Count > 0)
+                                                {
+                                                    foreach (var item in Model.Prices)
+                                                    {
+                                                        <td>@item.Amount</td>
+                                                        <td>@item.Vendor.Name</td>
+                                                        <td>@item.Vendor.Code</td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                }
                                             </tr>
-                                        </tfoot>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -76,47 +95,3 @@
     </div>
 </div>
 <!-- END: Content-->
-<script>
-    $(document).ready(function () {
-        $('#dynamic-table').DataTable({
-            'ajax': {
-                "type": "GET",
-                "url": "http://113.160.87.222:9876/api/Commodity/GetCommodities?type=material",
-                "dataSrc": function (json) {
-                    var data = new Array();
-                    for (var i = 0; i < json.Items.length; i++) {
-                        //for (var j = 0; j < json[i].Items.length; j++) {
-                        //}
-                        data.push({
-                            'Name': json.Items[i].Name,
-                            'Code': json.Items[i].Code,
-                            'CodeXT': json.Items[i].CodeXT,
-                            'Id': json.Items[i].Id
-                        });
-                    }
-                    return data;
-                }
-            },
-            "columns": [
-                { 'data': 'Name' },
-                { 'data': 'Code' },
-                { 'data': 'CodeXT' },
-                {
-                    "sortable": false,
-                    "data": function (data, type, row) {
-                        var urledit = "@Url.Action("Create","Commodities")";
-                        var urleditdeltail = urledit + "/" + data.Id;
-                        var urldelete = "@Url.Action("Delete","Commodities")";
-                        var urldeletedeltail = urldelete + "/" + data.Id;
-                        var urldetail = "@Url.Action("CommodityDetial","Commodities")";
-                        var urldeltail = urldetail + "/" + data.Id;
-                        var btndetail = '<div class=\"btn-group mx-2\" role=\"group\" aria-label=\"Second Group\">  <a href="' +  urldeltail + '" title="Xem chi tiet" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></a>';
-                        var btnaddPc = ' <a href="' +  urleditdeltail + '" title="Cập nhật thông tin" class="btn btn-icon btn-outline-warning"><i class="fa fa-gavel"></i></a>';
-                        var btndeletePc = ' <a href="' +  urldeletedeltail + '" title="Xóa thông tin" class="btn btn-icon btn-outline-info"><i class="fa fa-recycle"></i></a> </div>';
-                        return ( btndetail+btnaddPc  + btndeletePc  );
-                    }
-                },
-            ]
-        });
-    });
-</script>
