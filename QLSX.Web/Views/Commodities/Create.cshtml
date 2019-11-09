@@ -11,13 +11,12 @@
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="index.html">Home</a>
+                                <a href="javascript:history.go(-1)">Trang chủ</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Quản lý sản phẩm </a>
+                                <a href="#">Quản lý vật tư </a>
                             </li>
-                            <li class="breadcrumb-item active">
-                                <a href="#">Cập nhật thông tin </a>
+                            <li class="breadcrumb-item active">Cập nhật thông tin
                             </li>
                         </ol>
                     </div>
@@ -47,13 +46,13 @@
                                         @Html.AntiForgeryToken()
                                         @Html.HiddenFor(x => x.Id)
                                         <div class="form-body">
-                                            <h4 class="form-section"><i class="ft-user"></i> Thông tin sản phẩm</h4>
+                                            <h4 class="form-section"><i class="ft-user"></i> Thông tin vật tư</h4>
                                             <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="timesheetinput1">Tên nhà sản phẩm</label>
+                                                <label class="col-md-3 label-control" for="timesheetinput1">Tên vật tư</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        @*<input type="text" id="txtCode" class="form-control" placeholder="Nhập tên sản phẩm" name="">*@
-                                                        @Html.TextBoxFor(x => x.Name, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập tên sản phẩm" })
+                                                        @*<input type="text" id="txtCode" class="form-control" placeholder="Nhập tên vật tư" name="">*@
+                                                        @Html.TextBoxFor(x => x.Name, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập tên vật tư" })
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
@@ -61,11 +60,11 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="timesheetinput2">Mã sản phẩm</label>
+                                                <label class="col-md-3 label-control" for="timesheetinput2">Mã vật tư</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        @*<input type="text" id="txtCodeXT" class="form-control" placeholder="Nhập mã sản phẩm" name="projectname">*@
-                                                        @Html.TextBoxFor(x => x.Code, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã sản phẩm" })
+                                                        @*<input type="text" id="txtCodeXT" class="form-control" placeholder="Nhập mã vật tư" name="projectname">*@
+                                                        @Html.TextBoxFor(x => x.Code, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã vật tư" })
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
@@ -73,28 +72,28 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="timesheetinput2">Mô tả ngắn</label>
+                                                <label class="col-md-3 label-control" for="timesheetinput2">Mã hiển thị</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
                                                         @*<input type="text" id="txtName" class="form-control" placeholder="Nhập mã nhà cung cấp" name="projectname">*@
-                                                        @Html.TextBoxFor(x => x.CodeXT, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã sản phẩm" })
+                                                        @Html.TextBoxFor(x => x.CodeXT, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã hiển thị" })
                                                         <div class="form-control-position">
                                                             <i class="ft-phone primary"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            @*<div class="form-group row last">
-                                                <label class="col-md-3 label-control" for="timesheetinput7">Mô tả dài</label>
+                                            <div class="form-group row last">
+                                                <label class="col-md-3 label-control" for="timesheetinput7">Mô tả</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative">
-                                                        @Html.TextBoxFor(x => x.CommodityType, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã sản phẩm" })
+                                                        @Html.TextBoxFor(x => x.CommodityType, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mô tả" })
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>*@
+                                            </div>
                                             <div class="form-group row last">
                                                 <label class="col-md-3 label-control" for="timesheetinput7">Loại</label>
                                                 <div class="form-group col-9 mb-2">
@@ -131,7 +130,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="timesheetinput2">Giá</label>
+                                                <label class="col-md-3 label-control" for="timesheetinput2">Giá thành</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
                                                         <input type="text" id="" class="form-control" placeholder="Nhập giá" name="projectname">
@@ -145,10 +144,10 @@
                                         <div class="form-actions right">
 
                                             <button type="submit" class="btn btn-primary">
-                                                <i class="fa fa-check-square-o"></i> Save
+                                                <i class="fa fa-check-square-o"></i> Lưu
                                             </button>
-                                            <button type="button" class="btn btn-warning mr-1">
-                                                <i class="ft-x"></i> Cancel
+                                            <button type="button" class="btn btn-warning mr-1" onclick="javascript:history.go(-1)">
+                                                <i class="ft-x"></i> Hủy
                                             </button>
                                         </div>
                                     }

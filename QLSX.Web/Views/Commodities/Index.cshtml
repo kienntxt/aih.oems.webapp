@@ -10,7 +10,7 @@
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="index.html">Home</a>
+                                <a href="javascript:history.go(-1)">Trang chủ</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="#">Quản lý vật tư</a>
@@ -32,7 +32,7 @@
                             <div class="card-header" style="background: black;">
                                 <ul class="list-inline mb-0">
                                     <li class="addnew">
-                                        <a href="@Url.Action("Create","Commodities")" class="btn btn-info"><i class="fa fa-plus"></i>Thêm mới</a>
+                                        <a href="@Url.Action("Create","Commodities")" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
                                     </li>
                                 </ul>
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
@@ -51,18 +51,18 @@
                                             <tr>
                                                 <th>Tên vật tư</th>
                                                 <th>Mã vật tư</th>
-                                                <th>Mã vật tư-XT</th>
-                                                <td>Hành động </td>
+                                                <th>Mã hiển thị</th>
+                                                <td>Hành động</td>
                                             </tr>
                                         </thead>
-                                        <tfoot>
+                                        @*<tfoot>
                                             <tr>
                                                 <th>Tên vật tư</th>
                                                 <th>Mã vật tư</th>
                                                 <th>Mã vật tư-XT</th>
                                                 <td>Hành động </td>
                                             </tr>
-                                        </tfoot>
+                                        </tfoot>*@
                                     </table>
                                 </div>
                             </div>
@@ -110,9 +110,9 @@
                         var urldeletedeltail = urldelete + "/" + data.Id;
                         var urldetail = "@Url.Action("CommodityDetial","Commodities")";
                         var urldeltail = urldetail + "/" + data.Id;
-                        var btndetail = '<div class=\"btn-group mx-2\" role=\"group\" aria-label=\"Second Group\">  <a href="' +  urldeltail + '" title="Xem chi tiet" class="btn btn-icon btn-outline-success"><i class="fa fa-search"></i></a>';
-                        var btnaddPc = ' <a href="' +  urleditdeltail + '" title="Cập nhật thông tin" class="btn btn-icon btn-outline-warning"><i class="fa fa-gavel"></i></a>';
-                        var btndeletePc = ' <a href="' +  urldeletedeltail + '" title="Xóa thông tin" class="btn btn-icon btn-outline-info"><i class="fa fa-recycle"></i></a> </div>';
+                        var btndetail = '<div class=\"btn-group mx-2\" role=\"group\" aria-label=\"Second Group\">  <a href="' +  urldeltail + '" title="Chi tiết" class="btn btn-icon btn-outline-success"><i class="fa fa-info-circle"></i></a>';
+                        var btnaddPc = ' <a href="' +  urleditdeltail + '" title="Cập nhật" class="btn btn-icon btn-outline-warning"><i class="fa fa-edit"></i></a>';
+                        var btndeletePc = ' <a href="' +  urldeletedeltail + '" title="Xóa" class="btn btn-icon btn-outline-info"><i class="fa fa-trash"></i></a> </div>';
                         return ( btndetail+btnaddPc  + btndeletePc  );
                     }
                 },
