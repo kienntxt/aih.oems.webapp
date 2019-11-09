@@ -81,7 +81,7 @@
         $('#dynamic-table').DataTable({
             'ajax': {
                 "type": "GET",
-                "url": "http://113.160.87.222:9876/api/Commodity/GetCommodities?type=material",
+                "url": "http://113.160.87.222:9876/api/Commodity/Filter?type=material,semi",
                 "dataSrc": function (json) {
                     var data = new Array();
                     for (var i = 0; i < json.Items.length; i++) {
@@ -113,7 +113,7 @@
                         var btndetail = '<div class=\"btn-group mx-2\" role=\"group\" aria-label=\"Second Group\">  <a href="' +  urldeltail + '" title="Chi tiết" class="btn btn-icon btn-outline-success"><i class="fa fa-info-circle"></i></a>';
                         var btnaddPc = ' <a href="' +  urleditdeltail + '" title="Cập nhật" class="btn btn-icon btn-outline-warning"><i class="fa fa-edit"></i></a>';
                         var btndeletePc = ' <a href="' +  urldeletedeltail + '" title="Xóa" class="btn btn-icon btn-outline-info"><i class="fa fa-trash"></i></a> </div>';
-                        return ( btndetail+btnaddPc  + btndeletePc  );
+                        return ( btndetail  + btnaddPc  + btndeletePc  );
                     }
                 },
             ]

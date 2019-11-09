@@ -11,7 +11,7 @@ namespace OEMS.Web
         {
             public const string Material = "Material";
             public const string Product = "Product";
-            public const string SemiProduct = "Semi-Product";
+            public const string SemiProduct = "Semi";
             //public string Code { get; set; }
             //public string Name { get; set; }
             //public static List<string> lstCode = new List<string> { "Material", "Product", "Semi-Product" };
@@ -19,7 +19,7 @@ namespace OEMS.Web
             {
                 {"Material", "Vật tư"},
                 {"Product", "Thành phẩm"},
-                {"Semi-Product", "Bán thành phẩm"},
+                {"Semi", "Bán thành phẩm"},
             };
         }
 

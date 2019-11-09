@@ -47,7 +47,7 @@ namespace OEMS.Web.Controllers
                 //HTTP POST
                 if (partner.Id != null)
                 {
-                    var postTask = client.PostAsJsonAsync("Update?Partner=object", partner);
+                    var postTask = client.PostAsJsonAsync<Partner>("Update?Partner=object", partner);
                     postTask.Wait();
                     var result = postTask.Result;
                     if (result.IsSuccessStatusCode)
@@ -57,7 +57,7 @@ namespace OEMS.Web.Controllers
                 }
                 else
                 {
-                    var postTask = client.PostAsJsonAsync("Create?Partner=object", partner);
+                    var postTask = client.PostAsJsonAsync<Partner>("Create?Partner=object", partner);
                     postTask.Wait();
                     var result = postTask.Result;
                     if (result.IsSuccessStatusCode)

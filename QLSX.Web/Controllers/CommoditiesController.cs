@@ -59,7 +59,7 @@ namespace OEMS.Web.Controllers
                 }
                 else
                 {
-                    var postTask = client.PostAsJsonAsync("Create?Commodity=object", commodity);
+                    var postTask = client.PostAsJsonAsync<Commodity>("Create?Commodity=object", commodity);
                     postTask.Wait();
                     var result = postTask.Result;
                     if (result.IsSuccessStatusCode)
