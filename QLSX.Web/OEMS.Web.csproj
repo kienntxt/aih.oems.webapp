@@ -2670,6 +2670,8 @@
     <Content Include="Views\Commodities\CommodityDetial.cshtml" />
     <Content Include="Views\Price\Index.cshtml" />
     <Content Include="Views\Price\Create.cshtml" />
+    <Content Include="Views\Partner\Create.cshtml" />
+    <Content Include="Views\Partner\PartnerDetial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

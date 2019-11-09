@@ -7,7 +7,7 @@ namespace OEMS.Web
 {
     public class Constant
     {
-        public class TypeCommodity
+        public class CommodityTypes
         {
             public const string Material = "Material";
             public const string Product = "Product";
@@ -20,6 +20,19 @@ namespace OEMS.Web
                 {"Material", "Vật tư"},
                 {"Product", "Thành phẩm"},
                 {"Semi-Product", "Bán thành phẩm"},
+            };
+        }
+
+        public class PartnerTypes
+        {
+            public const string Partner = "Partner";
+            public const string Vendor = "Vendor";
+            public const string Customer = "Customer";
+            public static readonly Dictionary<string, string> dctPartnerTypes = new Dictionary<string, string>()
+            {
+                {"Partner", "Nhà cung cấp - Khách hàng"},
+                {"Vendor", "Nhà cung cấp"},
+                {"Customer", "Khách hàng"},
             };
         }
     }

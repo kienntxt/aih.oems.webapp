@@ -1,4 +1,5 @@
-﻿@{
+﻿@model OEMS.Web.Models.Partner
+@{
     Layout = "~/Views/Shared/_LayoutList.cshtml";
 }
 <!-- BEGIN: Content-->
@@ -10,13 +11,13 @@
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="index.html">Trang chủ</a>
+                                <a href="javascript:history.go(-1)">Trang chủ</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="#">Quản lý nhà cung cấp</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Danh sách nhà cung cấp
+                                Thông tin chi tiết
                             </li>
                         </ol>
                     </div>
@@ -32,7 +33,7 @@
                             <div class="card-header" style="background: black;">
                                 <ul class="list-inline mb-0">
                                     <li class="addnew">
-                                        <a href="@Url.Action("Create","Partner")" class="btn btn-info"><i class="fa fa-plus"></i>Thêm mới</a>
+                                        <a href="@Url.Action("Index","Partner")" class="btn btn-info"><i class="fa fa-arrow-left"></i>&nbsp; Quay lại</a>
                                     </li>
                                 </ul>
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
@@ -51,20 +52,18 @@
                                             <tr>
                                                 <th>Tên nhà cung cấp</th>
                                                 <th>Mã nhà cung cấp</th>
-                                                <th>Ngày tạo</th>
-                                                <th>Ngày cập nhật</th>
-                                                <td>Chức năng </td>
+                                                <th>Loại nhà cung cấp</th>
+                                                <th>Mô tả</th>
                                             </tr>
                                         </thead>
-                                        @*<tfoot>
+                                        <tbody>
                                             <tr>
-                                                <th>Tên nhà cung cấp</th>
-                                                <th>Mã nhà cung cấp</th>
-                                                <th>Ngày tạo</th>
-                                                <th>Ngày cập nhật</th>
-                                                <td>Hành động </td>
+                                                <td>@Model.Name</td>
+                                                <td>@Model.Code</td>
+                                                <td>@Model.Type</td>
+                                                <td>@Model.Description</td>
                                             </tr>
-                                        </tfoot>*@
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -78,44 +77,3 @@
     </div>
 </div>
 <!-- END: Content-->
-<script>
-    $(document).ready(function () {
-        $('#dynamic-table').DataTable({
-            'ajax': {
-                "type": "GET",
-                "url": "http://113.160.87.222:9876/api/Partner/Fillter?type=",
-                "dataSrc": function (json) {
-                    var data = new Array();
-                    for (var i = 0; i < json.Items.length; i++) {
-                        data.push({
-                            'Id': json.Items[i].Id,
-                            'Code': json.Items[i].Code,
-                            'Name': json.Items[i].Name,
-                            'Type': json.Items[i].Type,
-                            'Description': json.Items[i].Description,
-                        });
-                    }
-                    return data;
-                }
-            },
-            "columns": [
-                { 'data': 'Code' },
-                { 'data': 'Name' },
-                { 'data': 'Type' },
-                { 'data': 'Description' },
-                {
-                    "sortable": false,
-                    "data": function (data, type, row) {
-                        var urledit = "@Url.Action("Create","Partner")";
-                        var urleditdeltail = urledit + "/" + data.Id;
-                        var urldelete = "@Url.Action("Delete","Partner")";
-                        var urldeletedeltail = urldelete + "/" + data.Id;
-                        var btnaddPc = ' <a href="' +  urleditdeltail + '" title="Sửa" class="btn btn-icon btn-outline-warning"><i class="fa fa-gavel"></i></a>';
-                        var btndeletePc = ' <a href="' +  urldeletedeltail + '" title="Xóa" class="btn btn-icon btn-outline-info"><i class="fa fa-recycle"></i></a> </div>';
-                        return ( btnaddPc  + btndeletePc  );
-                    }
-                },
-            ]
-        });
-    });
-</script>

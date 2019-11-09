@@ -119,7 +119,7 @@
                                             <label class="col-md-3 label-control" for="timesheetinput7">Loại</label>
                                             <div class="form-group col-9 mb-2">
                                                 <label class="sr-only" for="issueinput6">Status</label>
-                                                @Html.DropDownListFor(x => x.CommodityType, Constant.TypeCommodity.dctCommdityTypes.Where(s => s.Key != Constant.TypeCommodity.Product).Select(n => new SelectListItem { Selected = n.Key == Model.CommodityType, Text = n.Value, Value = n.Key.ToString() }), new { @class = "form-control", @placeholder = "Chọn loại vật tư" })
+                                                @Html.DropDownListFor(x => x.CommodityType, Constant.CommodityTypes.dctCommdityTypes.Where(s => s.Key != Constant.CommodityTypes.Product).Select(n => new SelectListItem { Selected = n.Key == Model.CommodityType, Text = n.Value, Value = n.Key.ToString() }), new { @class = "form-control", @placeholder = "Chọn loại vật tư" })
                                             </div>
                                         </div>
                                         <div class="form-group" style="@(!string.IsNullOrEmpty(Model?.Id) ? "display:block" : "display:none")">
