@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="aih.oems.wapi.models">
+      <HintPath>..\..\aih.oems.webapi\aih.oems.wapi.models\bin\Debug\aih.oems.wapi.models.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -168,7 +171,6 @@
     </Compile>
     <Compile Include="Models\BaseInfo.cs" />
     <Compile Include="Models\Commodity.cs" />
-    <Compile Include="Models\Commoditydetail.cs" />
     <Compile Include="Models\Partner.cs" />
     <Compile Include="Models\Price.cs" />
     <Compile Include="Models\XtraInfo.cs" />

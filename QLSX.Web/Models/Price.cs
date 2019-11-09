@@ -5,12 +5,7 @@ using System.Web;
 
 namespace OEMS.Web.Models
 {
-    public class Price:BaseInfo
+    public class Price:aih.oems.wapi.models.Price
     {
-        public string Id { get; set; }
-        public Commodity Material { get; set; }
-        public Partner Vendor { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime StartDate { get; set; }
     }
 }

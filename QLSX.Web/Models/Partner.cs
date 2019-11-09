@@ -5,14 +5,7 @@ using System.Web;
 
 namespace OEMS.Web.Models
 {
-    public class Partner:BaseInfo
+    public class Partner:aih.oems.wapi.models.Partner
     {
-        public string Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        /// <summary>
-        /// VENDOR, CUSTOMER, PARTNER
-        /// </summary>
-        public string Type { get; set; }
     }
 }

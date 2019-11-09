@@ -10,13 +10,16 @@ namespace OEMS.Web
         public class TypeCommodity
         {
             public const string Material = "Material";
-            public const string Prod = "Product";
-            public const string SemiProd = "Semi-Product";
-            public static readonly Dictionary<string, string> dctName = new Dictionary<string, string>()
+            public const string Product = "Product";
+            public const string SemiProduct = "Semi-Product";
+            //public string Code { get; set; }
+            //public string Name { get; set; }
+            //public static List<string> lstCode = new List<string> { "Material", "Product", "Semi-Product" };
+            public static readonly Dictionary<string, string> dctCommdityTypes = new Dictionary<string, string>()
             {
-                {Material, "Material"},
-                {Prod, "Product"},
-                {SemiProd, "Semi-Product"},
+                {"Material", "Vật tư"},
+                {"Product", "Thành phẩm"},
+                {"Semi-Product", "Bán thành phẩm"},
             };
         }
     }

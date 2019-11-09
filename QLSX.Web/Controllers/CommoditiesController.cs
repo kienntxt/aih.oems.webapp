@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using OEMS.Web.Models;
@@ -17,7 +11,6 @@ namespace OEMS.Web.Controllers
         // GET: Commodities
         public ActionResult Index()
         {
-           
             return View();
         }
         public ActionResult Create(string ID)

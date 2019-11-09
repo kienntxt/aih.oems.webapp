@@ -5,8 +5,7 @@ using System.Web;
 
 namespace OEMS.Web.Models
 {
-    public class XtraInfo
+    public class XtraInfo:aih.oems.wapi.models.XtraInfo
     {
-        public Dictionary<string, object> Detail { get; set; }
     }
 }
