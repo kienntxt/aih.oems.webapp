@@ -159,6 +159,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Constant.cs" />
+    <Compile Include="Controllers\BillOfMaterialController.cs" />
     <Compile Include="Controllers\CommoditiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -170,6 +171,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BaseInfo.cs" />
+    <Compile Include="Models\BillOfMaterial.cs" />
     <Compile Include="Models\Commodity.cs" />
     <Compile Include="Models\Partner.cs" />
     <Compile Include="Models\Price.cs" />
@@ -2671,6 +2673,9 @@
     <Content Include="Views\Price\Create.cshtml" />
     <Content Include="Views\Partner\Create.cshtml" />
     <Content Include="Views\Partner\PartnerDetial.cshtml" />
+    <Content Include="Views\BillOfMaterial\BOMDetial.cshtml" />
+    <Content Include="Views\BillOfMaterial\Create.cshtml" />
+    <Content Include="Views\BillOfMaterial\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
