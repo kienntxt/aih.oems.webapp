@@ -2673,7 +2673,7 @@
     <Content Include="Views\Price\Create.cshtml" />
     <Content Include="Views\Partner\Create.cshtml" />
     <Content Include="Views\Partner\PartnerDetial.cshtml" />
-    <Content Include="Views\BillOfMaterial\BOMDetial.cshtml" />
+    <Content Include="Views\BillOfMaterial\BOMDetail.cshtml" />
     <Content Include="Views\BillOfMaterial\Create.cshtml" />
     <Content Include="Views\BillOfMaterial\Index.cshtml" />
   </ItemGroup>

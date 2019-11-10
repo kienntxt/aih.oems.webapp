@@ -59,6 +59,7 @@ namespace OEMS.Web.Controllers
                 {
                     var postTask = client.PostAsJsonAsync<BOM>("Create?BOM=object", bom);
                     postTask.Wait();
+                    string toJson = JsonConvert.SerializeObject(bom);
                     var result = postTask.Result;
                     if (result.IsSuccessStatusCode)
                     {
