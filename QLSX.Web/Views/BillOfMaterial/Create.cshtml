@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
+                            <div id="co-ex" class="card-header">
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
                                     <ul class="list-inline mb-0">
@@ -46,14 +46,15 @@
                                         @Html.AntiForgeryToken()
                                         @Html.HiddenFor(x => x.Id)
                                         <div class="form-body">
-                                            <h4 class="form-section"><i class="ft-user"></i> Thông tin định mức</h4>
+                                            <h4 class="form-section"><i class="ft-info"></i> Thông tin định mức</h4>
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="timesheetinput1">Ngày bắt đầu</label>
                                                 <div class="col-md-9">
-                                                    <div class="position-relative ">
-                                                        @Html.TextBoxFor(x => x.Name, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập tên định mức" })
+                                                    <div class="position-relative">
+                                                        @*@Html.TextBox("StartDate", "Chọn ngày bắt đầu", new { @Required = "Required", @class = "datepicker form-control" })*@
+                                                        @Html.TextBoxFor(x => x.StartDate, new { @Required = "Required", @class = "form-control datepicker", @placeholder = "Chọn ngày bắt đầu" })
                                                         <div class="form-control-position">
-                                                            <i class="ft-feather info font-medium-4"></i>
+                                                            <i class="ft-calendar info font-medium-4"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,73 +120,73 @@
                                                 @*@(!string.IsNullOrEmpty(Model?.Id) ? "show" : "hidden")*@
 
                                                 @*@Html.Hidden()*@
-                                                <h4 class="form-section"><i class="ft-clipboard"></i> Chi tiết định mức</h4>
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 label-control" for="timesheetinput2">Mã định mức</label>
-                                                    <div class="col-md-9">
-                                                        <div class="position-relative ">
-                                                            <input type="text" id="" class="form-control" placeholder="Nhập mã định mức" name="projectname">
-                                                            <div class="form-control-position">
-                                                                <i class="ft-feather info font-medium-4"></i>
+                                                <h4 class="form-section"><i class="ft-list"></i> Chi tiết định mức</h4>
+                                                @*<div class="form-group row">
+                                                        <label class="col-md-3 label-control" for="timesheetinput2">Mã định mức</label>
+                                                        <div class="col-md-9">
+                                                            <div class="position-relative ">
+                                                                <input type="text" id="" class="form-control" placeholder="Nhập mã định mức" name="projectname">
+                                                                <div class="form-control-position">
+                                                                    <i class="ft-feather info font-medium-4"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 label-control" for="timesheetinput2">Tên định mức</label>
-                                                    <div class="col-md-9">
-                                                        <div class="position-relative ">
-                                                            <input type="text" id="" class="form-control" placeholder="Nhập tên định mức" name="projectname">
-                                                            <div class="form-control-position">
-                                                                <i class="ft-feather info font-medium-4"></i>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-3 label-control" for="timesheetinput2">Tên định mức</label>
+                                                        <div class="col-md-9">
+                                                            <div class="position-relative ">
+                                                                <input type="text" id="" class="form-control" placeholder="Nhập tên định mức" name="projectname">
+                                                                <div class="form-control-position">
+                                                                    <i class="ft-feather info font-medium-4"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 label-control" for="timesheetinput2">Mã vật tư</label>
-                                                    <div class="col-md-9">
-                                                        <div class="position-relative ">
-                                                            <input type="text" id="" class="form-control" placeholder="Nhập mã định mức" name="projectname">
-                                                            <div class="form-control-position">
-                                                                <i class="ft-feather info font-medium-4"></i>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-3 label-control" for="timesheetinput2">Mã vật tư</label>
+                                                        <div class="col-md-9">
+                                                            <div class="position-relative ">
+                                                                <input type="text" id="" class="form-control" placeholder="Nhập mã định mức" name="projectname">
+                                                                <div class="form-control-position">
+                                                                    <i class="ft-feather info font-medium-4"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 label-control" for="timesheetinput2">Tên vật tư</label>
-                                                    <div class="col-md-9">
-                                                        <div class="position-relative ">
-                                                            <input type="text" id="" class="form-control" placeholder="Nhập tên định mức" name="projectname">
-                                                            <div class="form-control-position">
-                                                                <i class="ft-feather info font-medium-4"></i>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-3 label-control" for="timesheetinput2">Tên vật tư</label>
+                                                        <div class="col-md-9">
+                                                            <div class="position-relative ">
+                                                                <input type="text" id="" class="form-control" placeholder="Nhập tên định mức" name="projectname">
+                                                                <div class="form-control-position">
+                                                                    <i class="ft-feather info font-medium-4"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 label-control" for="timesheetinput2">Số lượng</label>
-                                                    <div class="col-md-9">
-                                                        <div class="position-relative ">
-                                                            <input type="text" id="" class="form-control" placeholder="Số lượng" name="projectname">
-                                                            <div class="form-control-position">
-                                                                <i class="ft-feather info font-medium-4"></i>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-3 label-control" for="timesheetinput2">Số lượng</label>
+                                                        <div class="col-md-9">
+                                                            <div class="position-relative ">
+                                                                <input type="text" id="" class="form-control" placeholder="Số lượng" name="projectname">
+                                                                <div class="form-control-position">
+                                                                    <i class="ft-feather info font-medium-4"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 label-control" for="timesheetinput2">Mô tả</label>
-                                                    <div class="col-md-9">
-                                                        <div class="position-relative ">
-                                                            <input type="text" id="" class="form-control" placeholder="Nhập mô tả" name="projectname">
-                                                            <div class="form-control-position">
-                                                                <i class="ft-feather info font-medium-4"></i>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-3 label-control" for="timesheetinput2">Mô tả</label>
+                                                        <div class="col-md-9">
+                                                            <div class="position-relative ">
+                                                                <input type="text" id="" class="form-control" placeholder="Nhập mô tả" name="projectname">
+                                                                <div class="form-control-position">
+                                                                    <i class="ft-feather info font-medium-4"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
+                                                    </div>*@
                                             </div>
                                         </div>
                                         <div class="form-actions right">
@@ -209,8 +210,17 @@
     </div>
 </div>
 <!-- END: Content-->
-@*<script type="text/javascript">
-    $(document).ready(function () {
+<script type="text/javascript">
+    var dateNow = new Date();
+    $('#StartDate').datepicker({
+        locale: 'vi',
+        format: 'dd/mm/yyyy',
+        orientation: 'left bottom',
+        useCurrent:false, // default this is set to true
+        //defaultDate: dateNow
+        //.hours(0).minutes(0).seconds(0).milliseconds(0)                    
+    }); 
+    @*$(document).ready(function () {
         $("#postform").submit(function (e) {
             e.preventDefault();
             var apiurl = "http://113.160.87.222:9876/api/Commodity/Create?Commodity=object";
@@ -233,5 +243,5 @@
                 }
             });
         });
-    });
-</script>*@ 
+    });*@
+</script> 

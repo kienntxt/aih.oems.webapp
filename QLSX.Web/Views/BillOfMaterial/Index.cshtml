@@ -60,6 +60,7 @@
                                                 </th>
                                             </tr>
                                             <tr>
+                                                <th>Ngày bắt đầu</th>
                                                 <th>Mã thành phẩm</th>
                                                 <th>Tên thành phẩm</th>
                                                 <th>Tên định mức</th>
@@ -91,6 +92,7 @@
                     var data = new Array();
                     for (var i = 0; i < json.Items.length; i++) {
                         data.push({
+                            'StartDate': json.Items[i].StartDate,
                             'ProductCode': json.Items[i].Product.Code,
                             'ProductName': json.Items[i].Product.Name,
                             'Name': json.Items[i].Name,
@@ -103,6 +105,7 @@
                 }
             },
             "columns": [
+                { 'data': 'StartDate' },
                 { 'data': 'ProductCode' },
                 { 'data': 'ProductName' },
                 { 'data': 'Name' },
