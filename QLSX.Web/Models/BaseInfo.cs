@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace OEMS.Web.Models
+﻿namespace OEMS.Web.Models
 {
-    public class BaseInfo:aih.oems.wapi.models.BaseInfo
+    public class BaseInfo : aih.oems.wapi.models.BaseInfo
     {
     }
 }

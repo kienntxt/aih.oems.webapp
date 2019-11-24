@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace OEMS.Web
 {
@@ -30,7 +27,7 @@ namespace OEMS.Web
             public const string Customer = "customer";
             public static readonly Dictionary<string, string> dctPartnerTypes = new Dictionary<string, string>()
             {
-                {"vartner", "Nhà cung cấp - Khách hàng"},
+                {"partner", "Nhà cung cấp - Khách hàng"},
                 {"vendor", "Nhà cung cấp"},
                 {"customer", "Khách hàng"},
             };

@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_LayoutList.cshtml";
 }
+
 <!-- BEGIN: Content-->
 <div class="app-content content">
     <div class="content-wrapper">
@@ -11,13 +12,13 @@
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="index.html">Home</a>
+                                <a href="javascript:history.go(-1)">Trang chủ</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Quản lý giá </a>
+                                <a href="#">Quản lý giá thành</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                <a href="#">Cập nhật thông tin </a>
+                                Cập nhật thông tin
                             </li>
                         </ol>
                     </div>
@@ -30,7 +31,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
+                            <div id="co-ex" class="card-header">
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
                                     <ul class="list-inline mb-0">
@@ -41,18 +42,30 @@
                             </div>
                             <div class="card-content collpase show">
                                 <div class="card-body">
-                                    @using (Html.BeginForm("Create", "Price", FormMethod.Post, new { @class = "form form-horizontal striped-rows form-bordered", @data_parsley_validate = "", id = "", @role = "form" }))
+                                    @using (Html.BeginForm("Create", "Price", FormMethod.Post, new { @class = "form form-horizontal striped-rows form-bordered", @data_parsley_validate = "", enctype = "multipart/form-data", id = "", @role = "form" }))
                                     {
                                         @Html.AntiForgeryToken()
                                         @Html.HiddenFor(x => x.Id)
                                         <div class="form-body">
-                                            <h4 class="form-section"><i class="ft-user"></i> Thông tin sản phẩm</h4>
+                                            <h4 class="form-section"><i class="ft-info"></i> Thông tin giá thành</h4>
                                             <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="timesheetinput1">Tên nhà sản phẩm</label>
+                                                <label class="col-md-3 label-control" for="timesheetinput1">Ngày bắt đầu</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative">
+                                                        @*@Html.TextBox("StartDate", "Chọn ngày bắt đầu", new { @Required = "Required", @class = "form-control datepicker", @id = "StartDate" })*@
+
+                                                        @Html.TextBoxFor(x => x.StartDate, "{0:dd/MM/yyyy}", new { @name = Model.StartDate, @Required = "Required", @class = "form-control datepicker", @placeholder = "Chọn ngày bắt đầu" })
+                                                        <div class="form-control-position">
+                                                            <i class="ft-calendar info font-medium-4"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="timesheetinput1">Giá thành</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        <input type="text" class="form-control" placeholder="" value="@Model.Material.Name" disabled>
-                                                        @*@Html.TextBoxFor(x => x.Name, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập tên sản phẩm" })*@
+                                                        @Html.TextBoxFor(x => x.Amount, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập giá thành" })
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
@@ -60,46 +73,37 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="timesheetinput2">Mã sản phẩm</label>
+                                                <label class="col-md-3 label-control" for="timesheetinput1">Hàng hóa</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        <input type="text" class="form-control" placeholder="" name="projectname" value="@Model.Material.Code" disabled>
-                                                        @*@Html.TextBoxFor(x => x.Code, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã sản phẩm" })*@
+                                                        @*@Html.TextBoxFor(x => x.Material, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã thành phẩm" })*@
+                                                        @*<select class="form-control" id="commodityId" name="Material.Id" required="Required" Placeholder="Chọn hàng hóa"></select>*@
+                                                        @*@Html.DropDownListFor(x => x.Material, null, "-- Chọn loại vật tư --", new { @class = "form-control", @placeholder = "Chọn loại vật tư", onchange = "GetPersons()" })*@
+                                                        @Html.DropDownListFor(x => x.Material.Id, Model.GetCommodyties().Result.Select(n => new SelectListItem { Selected = n.Id == Model.Material?.Id, Text = n.CodeXT + " - " + n.Name, Value = n.Id }), "-- Chọn hàng hóa --", new { @class = "form-control", @placeholder = "Chọn hàng hóa" })
                                                         <div class="form-control-position">
-                                                            <i class="ft-feather info font-medium-4"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h4 class="form-section"><i class="ft-clipboard"></i> Thông tin nhà cung cấp</h4>
-                                            <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="timesheetinput2">Mã nhà cung cấp</label>
-                                                <div class="col-md-9">
-                                                    <div class="position-relative ">
-                                                        <input type="text" class="form-control" name="projectname" value="@Model.Vendor.Name" disabled>
-                                                        <div class="form-control-position">
-                                                            <i class="ft-feather info font-medium-4"></i>
+                                                            <i class="ft-arrow-down primary"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-md-3 label-control" for="timesheetinput2">Tên nhà cung cấp</label>
+                                                <label class="col-md-3 label-control" for="timesheetinput1">Nhà cung cấp</label>
                                                 <div class="col-md-9">
                                                     <div class="position-relative ">
-                                                        <input type="text" class="form-control" name="projectname" value="@Model.Vendor.Code" disabled>
+                                                        @*@Html.TextBoxFor(x => x.Vendor, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã nhà cung cấp" })*@
+                                                        @*<select class="form-control" id="partnerId" name="Vendor.Id" required="Required" Placeholder="Chọn nhà cung cấp"></select>*@
+                                                        @Html.DropDownListFor(x => x.Vendor.Id, Model.GetPartners().Result.Select(n => new SelectListItem { Selected = n.Id == Model.Vendor?.Id, Text = n.Code + " - " + n.Name, Value = n.Id }), "-- Chọn nhà cung cấp --", new { @class = "form-control", @placeholder = "Chọn nhà cung cấp" })
                                                         <div class="form-control-position">
-                                                            <i class="ft-feather info font-medium-4"></i>
+                                                            <i class="ft-arrow-down primary"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <h4 class="form-section"><i class="ft-clipboard"></i> Thông tin giá</h4>
-                                            <div class="form-group row">
-                                                <label class="col-md-3 label-control">Giá</label>
+                                            <div class="form-group row last">
+                                                <label class="col-md-3 label-control" for="timesheetinput7">Mô tả</label>
                                                 <div class="col-md-9">
-                                                    <div class="position-relative ">
-                                                        @Html.TextBoxFor(x => x.Amount, new { @Required = "Required", @class = "form-control", @placeholder = "" })
+                                                    <div class="position-relative">
+                                                        @Html.TextAreaFor(x => x.Description, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mô tả" })
                                                         <div class="form-control-position">
                                                             <i class="ft-feather info font-medium-4"></i>
                                                         </div>
@@ -109,10 +113,10 @@
                                         </div>
                                         <div class="form-actions right">
                                             <button type="submit" class="btn btn-primary">
-                                                <i class="fa fa-check-square-o"></i> Save
+                                                <i class="fa fa-check-square-o"></i> Lưu
                                             </button>
-                                            <button type="button" class="btn btn-warning mr-1">
-                                                <i class="ft-x"></i> Cancel
+                                            <button type="button" class="btn btn-warning mr-1" onclick="javascript:history.go(-1)">
+                                                <i class="ft-x"></i> Hủy
                                             </button>
                                         </div>
                                     }
@@ -127,3 +131,73 @@
     </div>
 </div>
 <!-- END: Content-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datepicker').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: "dd/mm/yyyy",
+            language: "vi",
+            orientation: 'left bottom',
+            onSelect: function (dateText) {
+                //display("Selected date: " + dateText + ", Current Selected Value= " + this.value);
+                $(this).change();
+            }
+        });
+        $('.datepicker').on("change", function () {
+            console.log('New date changed: ' + $('.datepicker').datepicker().val());
+        });
+        //console.log(document.getElementById('StartDate').value);
+        if (document.getElementById('StartDate').value == '01/01/0001') {
+            $('.datepicker').datepicker("setDate", 'now');
+            //$('.datepicker').datepicker.value
+        }
+        //$('.datepicker').click(function () {
+        //    console.log('Datepicker val: ' + $('.datepicker').datepicker().val());
+        //    $('.datepicker').val($('.datepicker').datepicker().val());
+        //    console.log('New date changed: ' + $('.datepicker').datepicker().val());
+        //});
+        //$('.datepicker').datepicker().on("changeDate", function (e) {
+        //    console.log("Date changed: ", e.date);
+        //});
+        //$("#datepicker").change(function () {
+        //    selectedDate = $('.datepicker').datepicker().val();
+        //    console.log(selectedDate);
+        //});
+        //$("#datepicker").datepicker();
+        //.datepicker("setDate", 'now');
+
+        //var lstMaterial = $('#commodityId');
+        //var lstVendor = $('#partnerId');
+        //$.ajax({
+        //    url: "http://113.160.87.222:9876/api/Commodity/Filter?type=",
+        //    type: "get",
+        //    contentType: "application/json;charset=utf-8",
+        //    dataType: "json",
+        //    data: "{}",
+        //    success: function (data) {
+        //        lstMaterial.append($('<option></option>').val('').html('-- Chọn hàng hóa --'));
+        //        $.each(data.Items, function (i) {
+        //            lstMaterial.append($('<option></option>').val(data.Items[i].Id).html(data.Items[i].CodeXT + ' - ' + data.Items[i].Name));
+        //        });
+        //    },
+        //    error: function (msg) { console.log(msg); }
+        //});
+
+        //List partners
+        //$.ajax({
+        //    url: "http://113.160.87.222:9876/api/Partner/Filter?type=",
+        //    type: "get",
+        //    contentType: "application/json;charset=utf-8",
+        //    dataType: "json",
+        //    data: "{}",
+        //    success: function (data) {
+        //        lstVendor.append($('<option></option>').val('').html('-- Chọn nhà cung cấp --'));
+        //        $.each(data.Items, function (i) {
+        //            lstVendor.append($('<option></option>').val(data.Items[i].Id).html(data.Items[i].Code + ' - ' + data.Items[i].Name));
+        //        });
+        //    },
+        //    error: function (msg) { console.log(msg); }
+        //});
+    });
+</script> 

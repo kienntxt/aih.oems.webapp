@@ -1,13 +1,16 @@
 ﻿using Newtonsoft.Json;
 using OEMS.Web.Models;
 using System;
+using System.Configuration;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace OEMS.Web.Controllers
 {
     public class PartnerController : Controller
     {
+        string api = ConfigurationManager.AppSettings["base_api"].ToString();
         // GET: Partner
         public ActionResult Index()
         {
@@ -20,9 +23,9 @@ namespace OEMS.Web.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://113.160.87.222:9876/api/Partner/");
+                    client.BaseAddress = new Uri(api, UriKind.RelativeOrAbsolute);
                     //HTTP GET
-                    var responseTask = client.GetAsync("GetById?id=" + ID.ToString());
+                    var responseTask = client.GetAsync("Partner/GetById?id=" + ID.ToString());
                     responseTask.Wait();
                     var result = responseTask.Result;
                     if (result.IsSuccessStatusCode)
@@ -39,33 +42,25 @@ namespace OEMS.Web.Controllers
             return View(partner);
         }
         [HttpPost, ValidateInput(false)]
-        public ActionResult Create(Partner partner)
+        public async Task<ActionResult> Create(Partner partner)
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://113.160.87.222:9876/api/Partner/");
+                Utilities utilities = new Utilities();
+                string res = string.Empty;
                 //HTTP POST
                 if (partner.Id != null)
                 {
-                    var postTask = client.PostAsJsonAsync<Partner>("Update?Partner=object", partner);
-                    postTask.Wait();
-                    var result = postTask.Result;
-                    if (result.IsSuccessStatusCode)
-                    {
+                    res = await utilities.PostDataAPI(api + "Partner/Update?Partner=object", partner, client);
+                    if (res == "OK")
                         return RedirectToAction("Index");
-                    }
                 }
                 else
                 {
-                    var postTask = client.PostAsJsonAsync<Partner>("Create?Partner=object", partner);
-                    postTask.Wait();
-                    var result = postTask.Result;
-                    if (result.IsSuccessStatusCode)
-                    {
+                    res = await utilities.PostDataAPI(api + "Partner/Create?Partner=object", partner, client);
+                    if (res == "OK")
                         return RedirectToAction("Index");
-                    }
                 }
-
             }
             ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
             return View(partner);
@@ -74,9 +69,9 @@ namespace OEMS.Web.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://113.160.87.222:9876/api/Partner/");
+                client.BaseAddress = new Uri(api, UriKind.RelativeOrAbsolute);
                 //HTTP DELETE
-                var deleteTask = client.DeleteAsync("Delete?id=" + id.ToString());
+                var deleteTask = client.DeleteAsync("Partner/Delete?id=" + id.ToString());
                 deleteTask.Wait();
                 var result = deleteTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -87,16 +82,16 @@ namespace OEMS.Web.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ActionResult PartnerDetial(string Id)
+        public ActionResult PartnerDetail(string Id)
         {
             Partner partner = new Partner();
             if (Id != null)
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://113.160.87.222:9876/api/Partner/");
+                    client.BaseAddress = new Uri(api, UriKind.RelativeOrAbsolute);
                     //HTTP GET
-                    var responseTask = client.GetAsync("GetById?id=" + Id.ToString());
+                    var responseTask = client.GetAsync("Partner/GetById?id=" + Id.ToString());
                     responseTask.Wait();
                     var result = responseTask.Result;
                     if (result.IsSuccessStatusCode)

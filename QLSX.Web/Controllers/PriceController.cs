@@ -1,13 +1,16 @@
 ﻿using Newtonsoft.Json;
 using OEMS.Web.Models;
 using System;
+using System.Configuration;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace OEMS.Web.Controllers
 {
     public class PriceController : Controller
     {
+        string api = ConfigurationManager.AppSettings["base_api"].ToString();
         // GET: Price
         public ActionResult Index()
         {
@@ -20,9 +23,9 @@ namespace OEMS.Web.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://113.160.87.222:9876/api/Price/");
+                    client.BaseAddress = new Uri(api, UriKind.RelativeOrAbsolute);
                     //HTTP GET
-                    var responseTask = client.GetAsync("GetById?id=" + ID.ToString());
+                    var responseTask = client.GetAsync("Price/GetById?id=" + ID.ToString());
                     responseTask.Wait();
                     var result = responseTask.Result;
                     if (result.IsSuccessStatusCode)
@@ -39,50 +42,70 @@ namespace OEMS.Web.Controllers
             return View(prices);
         }
         [HttpPost, ValidateInput(false)]
-        public ActionResult Create(Price Price)
+        public async Task<ActionResult> Create(Price price)
         {
-            Price prices = new Price();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://113.160.87.222:9876/api/Price/");
-                //HTTP GET
-                var responseTask = client.GetAsync("GetById?id=" + Price.Id.ToString());
-                responseTask.Wait();
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsStringAsync().Result;
-                    prices = JsonConvert.DeserializeObject<Price>(readTask);
-                }
-                else //web api sent error response 
-                {
-                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
-                }
-            }
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://113.160.87.222:9876/api/Price/");
+                Utilities utilities = new Utilities();
+                string res = string.Empty;
                 //HTTP POST
-                if (Price.Id != null)
+                if (price.Id != null)
                 {
-                    prices.Amount = Price.Amount;
-                    var postTask = client.PostAsJsonAsync<Price>("Update?Price=object", prices);
-                    postTask.Wait();
-                    var result = postTask.Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        //var readTask = result.Content.ReadAsStringAsync().Result;
-                        //commodity = JsonConvert.DeserializeObject<Commodity>(readTask);
+                    res = await utilities.PostDataAPI(api + "Price/Update?Price=object", price, client);
+                    if (res == "OK")
                         return RedirectToAction("Index");
-                    }
                 }
                 else
                 {
+                    res = await utilities.PostDataAPI(api + "Price/Create?Price=object", price, client);
+                    if (res == "OK")
                         return RedirectToAction("Index");
                 }
             }
             ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
-            return View(Price);
+            return View(price);
+        }
+        public ActionResult Delete(string id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(api, UriKind.RelativeOrAbsolute);
+                //HTTP DELETE
+                var deleteTask = client.DeleteAsync("Price/Delete?id=" + id.ToString());
+                deleteTask.Wait();
+                var result = deleteTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
+        }
+        public ActionResult PriceDetail(string Id)
+        {
+            Price price = new Price();
+            if (Id != null)
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(api, UriKind.RelativeOrAbsolute);
+                    //HTTP GET
+                    var responseTask = client.GetAsync("Price/GetById?id=" + Id.ToString());
+                    responseTask.Wait();
+                    var result = responseTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var readTask = result.Content.ReadAsStringAsync().Result;
+                        price = JsonConvert.DeserializeObject<Price>(readTask);
+                    }
+                    else //web api sent error response 
+                    {
+                        ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                    }
+                }
+            }
+            return View(price);
         }
     }
 }

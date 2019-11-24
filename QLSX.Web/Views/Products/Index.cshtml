@@ -13,10 +13,10 @@
                                 <a href="javascript:history.go(-1)">Trang chủ</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Quản lý nhà cung cấp</a>
+                                <a href="#">Quản lý sản phẩm</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Danh sách nhà cung cấp
+                                Danh sách sản phẩm
                             </li>
                         </ol>
                     </div>
@@ -32,15 +32,13 @@
                             <div class="card-header" style="background: black;">
                                 <ul class="list-inline mb-0">
                                     <li class="addnew">
-                                        <a href="@Url.Action("Create","Partner")" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+                                        <a href="@Url.Action("Create","Products")" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
                                     </li>
                                 </ul>
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
                                     <ul class="list-inline mb-0">
-
                                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-
                                     </ul>
                                 </div>
                             </div>
@@ -49,19 +47,19 @@
                                     <table class="table table-striped table-bordered" id="dynamic-table">
                                         <thead>
                                             <tr>
-                                                <th>Tên nhà cung cấp</th>
-                                                <th>Mã nhà cung cấp</th>
-                                                <th>Loại nhà cung cấp</th>
-                                                <th>Mô tả</th>
+                                                <th>Nhóm sản phẩm</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Mã sản phẩm</th>
+                                                <th>Mã hiển thị</th>
                                                 <td>Chức năng</td>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>Tên nhà cung cấp</th>
-                                                <th>Mã nhà cung cấp</th>
-                                                <th>Loại nhà cung cấp</th>
-                                                <th>Mô tả</th>
+                                                <th>Nhóm sản phẩm</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Mã sản phẩm</th>
+                                                <th>Mã hiển thị</th>
                                                 <td>Chức năng</td>
                                             </tr>
                                         </tfoot>
@@ -83,45 +81,37 @@
         $('#dynamic-table').DataTable({
             'ajax': {
                 "type": "GET",
-                "url": "@System.Configuration.ConfigurationManager.AppSettings["base_api"].ToString()Partner/Filter?type=", //partner,vendor,customer
+                "url": "@System.Configuration.ConfigurationManager.AppSettings["base_api"].ToString()Commodity/Filter?type=product",
                 "dataSrc": function (json) {
                     var data = new Array();
                     for (var i = 0; i < json.Items.length; i++) {
                         data.push({
-                            'Id': json.Items[i].Id,
-                            'Code': json.Items[i].Name,
-                            'Name': json.Items[i].Code,
-                            'Type': json.Items[i].Type,
-                            'Description': json.Items[i].Description,
+                            'Group': json.Items[i].CommodityGroup,
+                            'Name': json.Items[i].Name,
+                            'Code': json.Items[i].Code,
+                            'CodeXT': json.Items[i].CodeXT,
+                            'Id': json.Items[i].Id
                         });
                     }
                     return data;
-                },
-                "error": function () {
-                    alert("Không truy xuất được dữ liệu!");
                 }
             },
             "columns": [
-                { 'data': 'Code' },
+                { 'data': 'Group' },
                 { 'data': 'Name' },
-                { 'data': 'Type',
-                    "render": function (data) {
-                        if(data.toLowerCase() == "vendor") return "Nhà cung cấp";
-                        else if ( data.toLowerCase() == "partner") return "Nhà cung cấp - Khách hàng";
-                        else return "Khách hàng";
-                    } },
-                { 'data': 'Description' },
+                { 'data': 'Code' },
+                { 'data': 'CodeXT' },
                 {
                     "sortable": false,
                     "data": function (data, type, row) {
-                        var urledit = "@Url.Action("Create","Partner")";
+                        var urledit = "@Url.Action("Create","Products")";
                         var urleditdetail = urledit + "/" + data.Id;
-                        var urldelete = "@Url.Action("Delete","Partner")";
+                        var urldelete = "@Url.Action("Delete","Products")";
                         var urldeletedetail = urldelete + "/" + data.Id;
-                        var urldetail = "@Url.Action("PartnerDetail","Partner")";
+                        var urldetail = "@Url.Action("ProductDetail","Products")";
                         var urldetail = urldetail + "/" + data.Id;
                         var btndetail = '<div class=\"btn-group mx-2\" role=\"group\" aria-label=\"Second Group\">  <a href="' +  urldetail + '" title="Chi tiết" class="btn btn-icon btn-outline-success"><i class="fa fa-info-circle"></i></a>';
-                        var btnaddPc = ' <a href="' +  urleditdetail + '" title="Sửa" class="btn btn-icon btn-outline-warning"><i class="fa fa-edit"></i></a>';
+                        var btnaddPc = ' <a href="' +  urleditdetail + '" title="Cập nhật" class="btn btn-icon btn-outline-warning"><i class="fa fa-edit"></i></a>';
                         var btndeletePc = ' <a href="' +  urldeletedetail + '" title="Xóa" class="btn btn-icon btn-outline-info"><i class="fa fa-trash"></i></a> </div>';
                         return ( btndetail  + btnaddPc  + btndeletePc  );
                     }

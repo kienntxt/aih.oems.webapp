@@ -1,4 +1,4 @@
-﻿@model OEMS.Web.Models.BOM
+﻿@model OEMS.Web.Models.Partner
 @{
     Layout = "~/Views/Shared/_LayoutList.cshtml";
 }
@@ -14,7 +14,7 @@
                                 <a href="javascript:history.go(-1)">Trang chủ</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Quản lý định mức</a>
+                                <a href="#">Quản lý nhà cung cấp</a>
                             </li>
                             <li class="breadcrumb-item active">
                                 Thông tin chi tiết
@@ -33,7 +33,7 @@
                             <div class="card-header" style="background: black;">
                                 <ul class="list-inline mb-0">
                                     <li class="addnew">
-                                        <a href="@Url.Action("Index","BillOfMaterial")" class="btn btn-info"><i class="fa fa-arrow-left"></i>&nbsp; Quay lại</a>
+                                        <a href="@Url.Action("Index","Partner")" class="btn btn-info"><i class="fa fa-arrow-left"></i>&nbsp; Quay lại</a>
                                     </li>
                                 </ul>
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
@@ -50,37 +50,29 @@
                                     <table class="table table-striped table-bordered" id="dynamic-table">
                                         <thead>
                                             <tr>
-                                                <th>Ngày bắt đầu</th>
-                                                <th>Mã thành phẩm</th>
-                                                <th>Tên thành phẩm</th>
-                                                <th>Tên định mức</th>
-                                                <th>Mã định mức</th>
+                                                <th>Tên nhà cung cấp</th>
+                                                <th>Mã nhà cung cấp</th>
+                                                <th>Loại nhà cung cấp</th>
                                                 <th>Mô tả</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>@Model.StartDate.ToString("dd/MM/yyyy")</td>
-                                                <td>@Model.Product.Code</td>
-                                                <td>@Model.Product.Name</td>
                                                 <td>@Model.Name</td>
                                                 <td>@Model.Code</td>
+                                                @if (@Model.Type.ToLower() == "vendor")
+                                                {
+                                                    <td>Nhà cung cấp</td>
+                                                }
+                                                else if (@Model.Type.ToLower() == "partner")
+                                                {
+                                                    <td>Nhà cung cấp - Khách hàng</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>Khách hàng</td>
+                                                }
                                                 <td>@Model.Description</td>
-                                                @*@if (Model.Prices.Count > 0)
-                                                    {
-                                                        foreach (var item in Model.Prices)
-                                                        {
-                                                            <td>@item.Amount</td>
-                                                            <td>@item.Vendor.Name</td>
-                                                            <td>@item.Vendor.Code</td>
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    }*@
                                             </tr>
                                         </tbody>
                                     </table>
