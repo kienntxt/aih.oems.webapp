@@ -1,0 +1,223 @@
+﻿@model OEMS.Web.Models.Contract
+@{
+    ViewBag.Title = "Cập nhật đơn hàng";
+    Layout = "~/Views/Shared/_LayoutList.cshtml";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12 mb-2">
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:history.go(-1)">Trang chủ</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Quản lý đơn hàng</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Cập nhật thông tin
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <!-- Striped row layout section start -->
+            <section id="striped-row-form-layouts">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div id="co-ex" class="card-header">
+                                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collpase show">
+                                <div class="card-body">
+                                    @using (Html.BeginForm("Create", "Contract", FormMethod.Post, new { @class = "form form-horizontal striped-rows form-bordered", @data_parsley_validate = "", id = "", @role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(x => x.Id)
+                                        <div class="form-body">
+                                            <h4 class="form-section"><i class="ft-user"></i> Thông tin đơn hàng</h4>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="timesheetinput1">Ngày bắt đầu</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative">
+                                                        @Html.TextBoxFor(x => x.StartDate, "{0:dd/MM/yyyy}", new { @Required = "Required", name = "StartDate", @class = "form-control startdate", @placeholder = "Chọn ngày bắt đầu" })
+                                                        <div class="form-control-position">
+                                                            <i class="ft-calendar info font-medium-4"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="timesheetinput1">Ngày kết thúc</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative">
+                                                        @Html.TextBoxFor(x => x.EndDate, "{0:dd/MM/yyyy}", new { @Required = "Required", name = "EndtDate", @class = "form-control enddate", @placeholder = "Chọn ngày kết thúc" })
+                                                        <div class="form-control-position">
+                                                            <i class="ft-calendar info font-medium-4"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="timesheetinput1">Mã đơn hàng</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative ">
+                                                        @Html.TextBoxFor(x => x.Code, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mã đơn hàng" })
+                                                        <div class="form-control-position">
+                                                            <i class="ft-feather info font-medium-4"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="timesheetinput2">Mã khách hàng</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative ">
+                                                        @Html.DropDownListFor(x => x.Customer.Id, Model.GetPartners().Result.Select(n => new SelectListItem { Selected = n.Id == Model.Customer?.Id, Text = n.Name, Value = n.Id }), "-- Chọn khách hàng --", new { @class = "form-control", @placeholder = "Chọn khách hàng" })
+                                                        <div class="form-control-position">
+                                                            <i class="ft-arrow-down primary"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row last">
+                                                <label class="col-md-3 label-control" for="timesheetinput7">Mô tả</label>
+                                                <div class="col-md-9">
+                                                    <div class="position-relative">
+                                                        @Html.TextAreaFor(x => x.Description, new { @Required = "Required", @class = "form-control", @placeholder = "Nhập mô tả" })
+                                                        <div class="form-control-position">
+                                                            <i class="ft-feather info font-medium-4"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="contractDetail" class="form-group @(!string.IsNullOrEmpty(Model?.Id) ? "show" : "hidden")">
+                                                <h4 class="form-section"><i class="ft-list"></i>Chi tiết đơn hàng</h4>
+                                                <table class="table table-striped table-bordered" id="contract-detail" name="contract-detail">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Mã sản phẩm</th>
+                                                            <th>Khối lượng</th>
+                                                            <th>Mô tả</th>
+                                                            <th>Chức năng</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Mã sản phẩm</th>
+                                                            <th>Khối lượng</th>
+                                                            <th>Mô tả</th>
+                                                            <th>Chức năng</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions right">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-check-square-o"></i> Lưu
+                                            </button>
+                                            <button type="button" class="btn btn-warning mr-1" onclick="javascript:history.go(-1)">
+                                                <i class="ft-x"></i> Hủy
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- // Striped row layout section end -->
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.startdate').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: "dd/mm/yyyy",
+            language: "vi",
+            orientation: 'left bottom',
+            onSelect: function (dateText) {
+                $(this).change();
+            }
+        });
+        $('.startdate').on("change", function () {
+            console.log('New date changed: ' + $('.startdate').datepicker().val());
+        });
+        $('.enddate').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: "dd/mm/yyyy",
+            language: "vi",
+            orientation: 'left bottom',
+            onSelect: function (dateText) {
+                $(this).change();
+            }
+        });
+        $('.enddate').on("change", function () {
+            console.log('New date changed: ' + $('.enddate').datepicker().val());
+        });
+        //console.log(document.getElementById('StartDate').value);
+        if (document.getElementById('StartDate').value == '01/01/0001' || document.getElementById('EndDate').value == '01/01/0001') {
+            $('.startdate').datepicker("setDate", 'now');
+            $('.enddate').datepicker("setDate", 'now');
+        }
+        if (@(!string.IsNullOrEmpty(@Model?.Id)))
+        {
+            alert(@(@Model?.Id))
+            $('#contract-detail').DataTable({
+                'ajax': {
+                    "type": "GET",
+                    "url": "@System.Configuration.ConfigurationManager.AppSettings["base_api"].ToString()contract/getbyid?id=@(@Model?.Id)&getdetails=true",
+                    "dataSrc": function (res) {
+                        var data = new Array();
+                        for (var i = 0; i < res.Items.Detail.length; i++) {
+                            data.push({
+                                'ProductCode': res.Items.Detail[i].Product.Code,
+                                'Amount': res.Items.Detail[i].Amount,
+                                'Description': res.Items.Detail[i].Description,
+                                'ContractDetailId': res.Items.Detail[i].Id
+                            });
+                        }
+                        return data;
+                    },
+                    "error": function () {
+                        alert("Không truy xuất được dữ liệu chi tiết!");
+                    }
+                },
+                "columns": [
+                    { 'data': 'ProductCode' },
+                    { 'data': 'Amount' },
+                    { 'data': 'Description' },
+                    {// this is Actions Column
+                        "mRender": function (data, type, row) {
+                            var linkEdit = '@Html.ActionLink("Edit", "Edit", new {id= -1 })';
+                            linkEdit = linkEdit.replace("-1", row.ID);
+
+                            var linkDelete = '@Html.ActionLink("Delete", "Delete", new {id= -1 })';
+                            linkDelete = linkDelete.replace("-1", row.ID);
+
+                            return linkEdit + " | " + linkDelete;
+                        }
+                    }
+                ]
+            }); //.makeEditable();
+        }
+    });
+</script> 
