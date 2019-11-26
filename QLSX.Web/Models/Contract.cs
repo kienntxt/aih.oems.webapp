@@ -13,9 +13,10 @@ namespace OEMS.Web.Models
     {
         [DataType(DataType.Date), DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}", ApplyFormatInEditMode = true)]
         new public DateTime StartDate { get; set; }
-        new public DateTime EndtDate { get; set; }
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}", ApplyFormatInEditMode = true)]
+        new public DateTime EndDate { get; set; }
         new public Partner Customer { get; set; }
-        new public Commodity Material { get; set; }
+        //new public Commodity Material { get; set; }
 
         private readonly string commParam = "commodity/filter?type=product";
         private readonly string partnerParam = "partner/filter?type=customer";

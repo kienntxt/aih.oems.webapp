@@ -103,19 +103,28 @@
                 }
             },
             "columns": [
-                { 'data': 'StartDate' },
-                { 'data': 'EndDate' },
+                {
+                    'data': 'StartDate',
+                    "render": function (data) {
+                        return moment(new Date(data)).format('DD/MM/YYYY');
+                    }
+                },
+                { 'data': 'EndDate',
+                    "render": function (data) {
+                        return moment(new Date(data)).format('DD/MM/YYYY');
+                    }
+                },
                 { 'data': 'Code' },
                 { 'data': 'CustomerId' },
                 { 'data': 'Description' },
                 {
                     "sortable": false,
                     "data": function (data, type, row) {
-                        var urledit = "@Url.Action("Create","Contract")";
+                        var urledit = "@Url.Action("Create","Contracts")";
                         var urleditdetail = urledit + "/" + data.Id;
-                        var urldelete = "@Url.Action("Delete","Contract")";
+                        var urldelete = "@Url.Action("Delete","Contracts")";
                         var urldeletedetail = urldelete + "/" + data.Id;
-                        var urldetail = "@Url.Action("ContractDetail","Contract")";
+                        var urldetail = "@Url.Action("ContractDetail","Contracts")";
                         var urldetail = urldetail + "/" + data.Id;
                         var btndetail = '<div class=\"btn-group mx-2\" role=\"group\" aria-label=\"Second Group\">  <a href="' +  urldetail + '" title="Chi tiết" class="btn btn-icon btn-outline-success"><i class="fa fa-info-circle"></i></a>';
                         var btnaddPc = ' <a href="' +  urleditdetail + '" title="Cập nhật" class="btn btn-icon btn-outline-warning"><i class="fa fa-edit"></i></a>';

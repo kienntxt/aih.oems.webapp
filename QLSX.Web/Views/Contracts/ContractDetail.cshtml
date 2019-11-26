@@ -34,7 +34,7 @@
                             <div class="card-header" style="background: black;">
                                 <ul class="list-inline mb-0">
                                     <li class="addnew">
-                                        <a href="@Url.Action("Index","Contract")" class="btn btn-info"><i class="fa fa-arrow-left"></i>&nbsp; Quay lại</a>
+                                        <a href="@Url.Action("Index","Contracts")" class="btn btn-info"><i class="fa fa-arrow-left"></i>&nbsp; Quay lại</a>
                                     </li>
                                 </ul>
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
@@ -60,10 +60,10 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>@Model.StartDate</td>
-                                                <td>@Model.EndDate</td>
+                                                <td>@Model.StartDate.ToString("dd/MM/yyyy")</td>
+                                                <td>@Model.EndDate.ToString("dd/MM/yyyy")</td>
                                                 <td>@Model.Code</td>
-                                                <td>@Model.Customer.Code</td>
+                                                <td>@Model.Customer.Id</td>
                                                 <td>@Model.Description</td>
                                             </tr>
                                         </tbody>

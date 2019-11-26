@@ -25,7 +25,7 @@ namespace OEMS.Web.Controllers
                 {
                     client.BaseAddress = new Uri(api);
                     //HTTP GET
-                    var responseTask = client.GetAsync("Contract/GetById?id=" + ID.ToString());
+                    var responseTask = client.GetAsync("contract/getbyid?id=" + ID.ToString());
                     responseTask.Wait();
                     var result = responseTask.Result;
                     if (result.IsSuccessStatusCode)
@@ -51,13 +51,13 @@ namespace OEMS.Web.Controllers
                 //HTTP POST
                 if (Contract.Id != null)
                 {
-                    res = await utilities.PostDataAPI(api + "Contract/Update?Contract=object", Contract, client);
+                    res = await utilities.PostDataAPI(api + "contract/update?contract=object", Contract, client);
                     if (res == "OK")
                         return RedirectToAction("Index");
                 }
                 else
                 {
-                    res = await utilities.PostDataAPI(api + "Contract/Create?Contract=object", Contract, client);
+                    res = await utilities.PostDataAPI(api + "contract/create?contract=object", Contract, client);
                     if (res == "OK")
                         return RedirectToAction("Index");
                 }
@@ -71,7 +71,7 @@ namespace OEMS.Web.Controllers
             {
                 client.BaseAddress = new Uri(api);
                 //HTTP DELETE
-                var deleteTask = client.DeleteAsync("Contract/Delete?id=" + id.ToString());
+                var deleteTask = client.DeleteAsync("contract/delete?id=" + id.ToString());
                 deleteTask.Wait();
                 var result = deleteTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -90,7 +90,7 @@ namespace OEMS.Web.Controllers
                 {
                     client.BaseAddress = new Uri(api, UriKind.RelativeOrAbsolute);
                     //HTTP GET
-                    var responseTask = client.GetAsync("Contract/GetById?id=" + Id.ToString());
+                    var responseTask = client.GetAsync("contract/getbyid?id=" + Id.ToString());
                     responseTask.Wait();
                     var result = responseTask.Result;
                     if (result.IsSuccessStatusCode)
