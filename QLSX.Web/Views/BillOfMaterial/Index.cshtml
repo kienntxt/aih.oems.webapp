@@ -96,9 +96,12 @@
 <script>
     $(document).ready(function () {
         $('#dynamic-table').DataTable({
+            "bScrollCollapse": true,
+            "sScrollY": "auto",
+            "sScrollX": "auto",
             'ajax': {
                 "type": "GET",
-                "url":  "@System.Configuration.ConfigurationManager.AppSettings["base_api"].ToString()BOM/Filter?productId=",
+                "url":  "@System.Configuration.ConfigurationManager.AppSettings["base_api"].ToString()bom/filter?productId=",
                 "dataSrc": function (json) {
                     var data = new Array();
                     for (var i = 0; i < json.Items.length; i++) {

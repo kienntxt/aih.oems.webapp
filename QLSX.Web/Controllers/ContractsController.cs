@@ -4,49 +4,53 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OEMS.Web.Models;
 
 namespace OEMS.Web.Controllers
 {
     public class ContractsController : Controller
     {
+        Utilities utilities = new Utilities();
+        HttpClient client = new HttpClient();
         string api = ConfigurationManager.AppSettings["base_api"].ToString();
         // GET: Contract
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Create(string ID)
+        public async Task<ActionResult> Create(string ID)
         {
             Contract Contract = new Contract();
-            if (ID !=null)
+            if (ID != null)
             {
-                using (var client = new HttpClient())
+                string res = await utilities.GetDataAPI(api, "contract/getbyid?id=" + ID.ToString() + "&getdetails=true");
+                if (!string.IsNullOrEmpty(res))
                 {
-                    client.BaseAddress = new Uri(api);
-                    //HTTP GET
-                    var responseTask = client.GetAsync("contract/getbyid?id=" + ID.ToString());
-                    responseTask.Wait();
-                    var result = responseTask.Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        var readTask = result.Content.ReadAsStringAsync().Result;
-                        Contract = JsonConvert.DeserializeObject<Contract>(readTask);
-                    }
-                    else //web api sent error response 
-                    {
-                        ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
-                    }
+                    Contract = JsonConvert.DeserializeObject<Contract>(res);
+                }
+                else //web api sent error response 
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
                 }
             }
             return View(Contract);
         }
+
+        public ActionResult LoadContractDetails()
+        {
+            var contractDetais = new Contract();
+
+            //return Json(new { aaData = contractDetais.Select(x => new[] { x.Number, x.Description })}, JsonRequestBehavior.AllowGet);
+            return null;
+        }
+
         [HttpPost, ValidateInput(false)]
         public async Task<ActionResult> Create(Contract Contract)
         {
             using (var client = new HttpClient())
             {
-                Utilities utilities = new Utilities();
+
                 string res = string.Empty;
                 //HTTP POST
                 if (Contract.Id != null)

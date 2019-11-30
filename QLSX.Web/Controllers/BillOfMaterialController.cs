@@ -11,32 +11,27 @@ namespace OEMS.Web.Controllers
     public class BillOfMaterialController : Controller
     {
         string api = ConfigurationManager.AppSettings["base_api"].ToString();
+        private Utilities utilities = new Utilities();
+        private HttpClient client = new HttpClient();
+
         // GET: BillOfMaterial - BOM
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Create(string ID)
+        public async Task<ActionResult> Create(string ID)
         {
             BOM bom = new BOM();
             if (ID != null)
             {
-                using (var client = new HttpClient())
+                string res = await utilities.GetDataAPI(api, "bom/getbyid?id=" + ID.ToString() + "&getdetails=true");
+                if (!string.IsNullOrEmpty(res))
                 {
-                    client.BaseAddress = new Uri(api, UriKind.RelativeOrAbsolute);
-                    //HTTP GET
-                    var responseTask = client.GetAsync("BOM/GetById?id=" + ID.ToString());
-                    responseTask.Wait();
-                    var result = responseTask.Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        var readTask = result.Content.ReadAsStringAsync().Result;
-                        bom = JsonConvert.DeserializeObject<BOM>(readTask);
-                    }
-                    else //web api sent error response 
-                    {
-                        ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
-                    }
+                    bom = JsonConvert.DeserializeObject<BOM>(res);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
                 }
             }
             return View(bom);

@@ -114,25 +114,25 @@
                                                             <th>Chức năng</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        @if (Model.Detail != null)
-                                                        {
-                                                            foreach (var item in Model.Detail)
+                                                    @*<tbody>
+                                                            @if (Model.Detail.Count > 0)
                                                             {
-                                                                <tr id="@item.Id">
-                                                                    <td>@item.Product.Code</td>
-                                                                    <td>@item.Amount</td>
-                                                                    <td>@item.Description</td>
+                                                                foreach (var item in Model.Detail)
+                                                                {
+                                                                    <tr id="@item.Id">
+                                                                        <td>@item.Product.Code</td>
+                                                                        <td>@item.Amount</td>
+                                                                        <td>@item.Description</td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <tr id="">
+                                                                    <td colspan="4">Không có dữ liệu hiển thị</td>
                                                                 </tr>
                                                             }
-                                                        }
-                                                        else
-                                                        {
-                                                            <tr id="">
-                                                                <td colspan="4">Không có dữ liệu hiển thị</td>
-                                                            </tr>
-                                                        }
-                                                    </tbody>
+                                                        </tbody>*@
                                                     <tfoot>
                                                         <tr>
                                                             <th>Mã sản phẩm</th>
@@ -142,6 +142,7 @@
                                                         </tr>
                                                     </tfoot>
                                                 </table>
+                                                <div class="add_delete_toolbar" />
                                             </div>
                                         </div>
                                         <div class="form-actions right">
@@ -197,7 +198,31 @@
             $('.startdate').datepicker("setDate", 'now');
             $('.enddate').datepicker("setDate", 'now');
         }
-        //console.log("Detail: @Model.Detail.");
+
+        //var data = @Html.Raw(Json.Encode(Model.Detail));
+        //console.log("data: " + data);
+
+        @*$('#contract-detail').DataTable({
+            responsive: true,
+            data: data,
+            columns: [
+                { 'data': data.Product.ID },
+                { 'data': data.Amount },
+                { 'data': data.Description },
+                {// this is Actions Column
+                    "mRender": function (data, type, row) {
+                        var linkEdit = '@Html.ActionLink("Edit", "Edit", new {id= -1 })';
+                        linkEdit = linkEdit.replace("-1", row.ID);
+
+                        var linkDelete = '@Html.ActionLink("Delete", "Delete", new {id= -1 })';
+                        linkDelete = linkDelete.replace("-1", row.ID);
+
+                        return linkEdit + " | " + linkDelete;
+                    }
+                }
+            ]
+        });*@
+
         @*if ("@(@Model?.Id)" != "")
         {
             $('#contract-detail').DataTable({
@@ -206,7 +231,7 @@
                     "url": "@System.Configuration.ConfigurationManager.AppSettings["base_api"].ToString()contract/getbyid?id=@(@Model?.Id)&getdetails=true",
                     "dataSrc": function (res) {
                         var data = new Array();
-                        //console.log("Detail: " + res.Detail.length);
+                        console.log("Detail: " + @Model.Detail.Count);
                         for (var i = 0; i < res.Detail.length; i++) {
                             data.push({
                                 'ProductCode': res.Detail[i].Product.Code,

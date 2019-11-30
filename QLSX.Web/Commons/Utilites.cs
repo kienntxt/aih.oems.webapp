@@ -77,6 +77,28 @@ namespace OEMS.Web
                 return null;
             }
         }
+        public async Task<string> PostDelete(string api)
+        {
+            try
+            {
+                client = new HttpClient();
+                //var content = JsonConvert.SerializeObject(dataPost);
+                client.DefaultRequestHeaders.Accept.Clear();
+                //var buffer = Encoding.UTF8.GetBytes(content);
+                //var byteContent = new ByteArrayContent(buffer);
+                client.BaseAddress = new Uri(api);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //HttpResponseMessage response = await client.PostAsync(api, byteContent);
+                HttpResponseMessage response = await client.DeleteAsync(api);
+                var responseData = response.Content.ReadAsStringAsync();
 
+                return response.StatusCode.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Request delete finding error: " + ex.Message);
+                return null;
+            }
+        }
     }
 }
